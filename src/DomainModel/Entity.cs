@@ -1,45 +1,44 @@
-﻿namespace DomainModel
+﻿namespace DomainModel;
+
+public abstract class Entity
 {
-    public abstract class Entity
+    public virtual long Id { get; protected set; }
+
+    public override bool Equals(object obj)
     {
-        public virtual long Id { get; protected set; }
+        if (obj is not Entity other)
+            return false;
 
-        public override bool Equals(object obj)
-        {
-            if (obj is not Entity other)
-                return false;
+        if (ReferenceEquals(this, other))
+            return true;
 
-            if (ReferenceEquals(this, other))
-                return true;
+        if (GetType() != other.GetType())
+            return false;
 
-            if (GetType() != other.GetType())
-                return false;
+        if (Id == 0 || other.Id == 0)
+            return false;
 
-            if (Id == 0 || other.Id == 0)
-                return false;
+        return Id == other.Id;
+    }
 
-            return Id == other.Id;
-        }
+    public static bool operator ==(Entity a, Entity b)
+    {
+        if (a is null && b is null)
+            return true;
 
-        public static bool operator ==(Entity a, Entity b)
-        {
-            if (a is null && b is null)
-                return true;
+        if (a is null || b is null)
+            return false;
 
-            if (a is null || b is null)
-                return false;
+        return a.Equals(b);
+    }
 
-            return a.Equals(b);
-        }
+    public static bool operator !=(Entity a, Entity b)
+    {
+        return !(a == b);
+    }
 
-        public static bool operator !=(Entity a, Entity b)
-        {
-            return !(a == b);
-        }
-
-        public override int GetHashCode()
-        {
-            return (GetType().ToString() + Id).GetHashCode();
-        }
+    public override int GetHashCode()
+    {
+        return (GetType().ToString() + Id).GetHashCode();
     }
 }

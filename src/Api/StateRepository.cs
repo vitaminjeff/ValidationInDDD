@@ -1,10 +1,9 @@
-﻿namespace Api
+﻿namespace Api;
+
+public class StateRepository
 {
-    public class StateRepository
+    public string[] GetAll()
     {
-        public string[] GetAll()
-        {
-            return new[] { "VA", "DC" };
-        }
+        return new[] { "VA", "DC" };
     }
 }
