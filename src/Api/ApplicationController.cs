@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api;
 
-[ApiController]
+/// <summary>
+/// Gather all common controller functionality in this class.
+/// </summary>
+[ApiController] // this will be applied to all controllers that inherit from this class
 public class ApplicationController : ControllerBase
 {
     protected new IActionResult Ok(object result = null)

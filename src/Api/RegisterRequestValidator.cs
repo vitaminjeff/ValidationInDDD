@@ -38,6 +38,10 @@ public class AddressesValidator : AbstractValidator<AddressDto[]>
 {
     public AddressesValidator(StateRepository repository)
     {
+        // Stop all rules within this validator when a rule fails
+        ClassLevelCascadeMode = CascadeMode.Stop;
+        RuleLevelCascadeMode = CascadeMode.Stop;
+        
         RuleFor(x => x)
             .ListMustContainNumberOfItems(1, 3)
             .ForEach(x =>
@@ -45,7 +49,7 @@ public class AddressesValidator : AbstractValidator<AddressDto[]>
                 x.NotNull();
                 x.ChildRules(address =>
                 {
-                    address.CascadeMode = CascadeMode.Stop;
+                    // address.CascadeMode = CascadeMode.Stop;
                     address.RuleFor(y => y.State)
                         .MustBeValueObject(s => State.Create(s, repository.GetAll()));
                     address.RuleFor(y => y)
