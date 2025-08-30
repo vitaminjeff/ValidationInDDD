@@ -5,6 +5,7 @@ namespace Api;
 
 public class Program
 {
+    // replace this with single file
     public static void Main(string[] args)
     {
         CreateHostBuilder(args).Build().Run();
